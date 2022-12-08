@@ -4,10 +4,9 @@ import { useState, useEffect } from "react";
 
 import Register from "./Routes/Register";
 import Login from "./Routes/Login";
-import Home from "./Routes/Home";
+import Welcome from "./Routes/Welcome";
 import Dashboard from "./Routes/Dashboard";
 import UserData from "./Routes/UserData";
-import New from "./Routes/New";
 
 function App() {
 
@@ -20,11 +19,9 @@ function App() {
       <BrowserRouter>
         <Routes>
             <Route path="/register" element={<Register />} />
-            <Route path="/userdata/:id" element={<UserData />} /> 
-            <Route path="/new" element={<New />} />
             <Route path="/login" element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route index path="/" element={loggedIn ? <Dashboard />: <Home />} /> 
+            <Route index path="/" element={loggedIn ? <Dashboard />: <Welcome />} /> 
         </Routes>
       </BrowserRouter>
     </div>
