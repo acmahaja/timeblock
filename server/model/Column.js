@@ -9,7 +9,10 @@ const ColumnSchema = new Schema({
     type: String,
     required: true,
   },
-
+  colour: {
+    type: String,
+    length: 6,
+  },
   deleted: {
     type: Boolean,
     default: false,
