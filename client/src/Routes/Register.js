@@ -11,7 +11,7 @@ function Register() {
 
   async function registerUser(event) {
     event.preventDefault();
-    const response = await fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/api/register`, {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_ADDRESS}/auth/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -20,8 +20,11 @@ function Register() {
     });
 
     const data = await response.json();
+
     if (data.status === "ok") {
       navigate("/login");
+    } else {
+      console.log("error");
     }
   }
 
