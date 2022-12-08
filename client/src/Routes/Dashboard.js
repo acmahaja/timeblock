@@ -25,7 +25,6 @@ function Dashboard() {
       localStorage.removeItem("token");
       navigate("/login");
     } else {
-      console.log(data);
       setMessages(data.data);
     }
   };
