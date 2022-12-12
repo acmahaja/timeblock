@@ -20,9 +20,19 @@ BoardRouter.delete("/:id", verifyAccessToken, (req, res) => {
   res.send(`deleting ${id}`);
 });
 
-BoardRouter.put("/:id", verifyAccessToken, (req, res) => {
+BoardRouter.put("/:id", verifyAccessToken, async (req, res) => {
   const { id } = req.params;
-  res.send(`editing ${id}`);
+
+  try {
+  
+    const board = await Board.findByIdAndUpdate(id, { name: req.body.name });
+    res.send({ status: "ok" });
+
+  } catch (error) {
+  
+    res.send({ status: "error", message: "Something broke updating board" });
+  
+  }
 });
 
 BoardRouter.get("/:id", verifyAccessToken, async (req, res) => {
@@ -40,7 +50,6 @@ BoardRouter.get("/:id", verifyAccessToken, async (req, res) => {
       const tasks = Task.find({ column: column._id });
       columnObject.push({ id: column._id, name: column.name });
     });
-
 
     res.send({ status: "ok", ...boardObject, columns: columnObject });
   } catch (error) {
