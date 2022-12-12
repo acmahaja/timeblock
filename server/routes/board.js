@@ -15,23 +15,31 @@ const Column = require("../model/Column");
 
 dotenv.config();
 
-BoardRouter.delete("/:id", verifyAccessToken, (req, res) => {
+BoardRouter.delete("/:id", verifyAccessToken, async (req, res) => {
   const { id } = req.params;
-  res.send(`deleting ${id}`);
+
+  try {
+    const board = await Board.findById(id)
+    if (board.name === "To Do") {
+      throw new Error('Can\'t delete To Do Board')
+    }
+    
+    await Board.findByIdAndUpdate(id, { deleted: true });
+    res.send({ status: "ok" });
+  } catch (error) {
+    res.send({ status: "error", message: `Something broke deleting board: ${error.message}` });
+  }
+
 });
 
 BoardRouter.put("/:id", verifyAccessToken, async (req, res) => {
   const { id } = req.params;
 
   try {
-  
-    const board = await Board.findByIdAndUpdate(id, { name: req.body.name });
+    await Board.findByIdAndUpdate(id, { name: req.body.name });
     res.send({ status: "ok" });
-
   } catch (error) {
-  
     res.send({ status: "error", message: "Something broke updating board" });
-  
   }
 });
 
@@ -39,7 +47,8 @@ BoardRouter.get("/:id", verifyAccessToken, async (req, res) => {
   try {
     const { id } = req.params;
     let boardObject;
-    const board = await Board.findById(id);
+    const board = await Board.findOne({ _id: id, deleted: false });
+
     boardObject = { name: board };
 
     let columns = await Column.find({ board: board._id });
@@ -80,19 +89,19 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
       throw new Error("Board Exist");
     }
 
-    const newBoard = new Board({ user: user._id, name: name });
+    const newBoard = new Board({ user: user._id, name: name, deleted: false });
 
     if (columns) {
       columns = parseColumns(columns);
       columns = saveColumns(columns, newBoard._id);
     }
 
-    newBoard.save();
-    columns.forEach(async (column) => column.save());
+    // newBoard.save();
+    // columns.forEach(async (column) => column.save());
 
     res.send({ status: "ok", board_id: newBoard._id });
   } catch (error) {
-    res.send({ status: "error", message: `Error Creating board ${error}` });
+    res.send({ status: "error", message: `Error Creating board: ${error.message}` });
   }
 });
 
