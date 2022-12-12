@@ -96,8 +96,8 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
       columns = saveColumns(columns, newBoard._id);
     }
 
-    // newBoard.save();
-    // columns.forEach(async (column) => column.save());
+    newBoard.save();
+    columns.forEach(async (column) => column.save());
 
     res.send({ status: "ok", board_id: newBoard._id });
   } catch (error) {
