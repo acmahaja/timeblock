@@ -5,7 +5,6 @@ const User = require("../model/User");
 const UserData = require("../model/UserData");
 const {verifyAccessToken} = require('../utils/auth')
 const dotenv = require("dotenv");
-const { decode } = require('jsonwebtoken');
 dotenv.config();
 
 

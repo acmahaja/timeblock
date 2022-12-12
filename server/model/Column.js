@@ -4,6 +4,7 @@ const ColumnSchema = new Schema({
   board: {
     type: Schema.Types.ObjectId,
     ref: "Board",
+    required: true
   },
   name: {
     type: String,
