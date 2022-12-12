@@ -9,9 +9,16 @@ ColumnRouter.delete(
     "/:id", 
     verifyAccessToken, 
     async (req, res) => {
-    const { id } = req.params;
+        const { id } = req.params;
 
-    res.send(`deleting column${id}`);
+        try {         
+          await Column.findByIdAndUpdate(id, { deleted: true });
+          
+          res.send({ status: "ok" });
+        } catch (error) {
+          res.send({ status: "error", message: `Something broke deleting column: ${error.message}` });
+        }
+      
 });
 
 ColumnRouter.put(
