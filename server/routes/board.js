@@ -45,12 +45,8 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
     }
 
     let {name, columns} = req.body;
-    let as = await verifyBoard(name, user._id)
-    console.log("as");
-    console.log(as);
 
-    if (!verifyBoard(name, user._id)) {
-      console.log("asd");
+    if (await verifyBoard(name, user._id)>0) {
       throw new Error('Board Exist')
     }
 

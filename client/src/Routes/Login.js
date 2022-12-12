@@ -24,7 +24,6 @@ function Login() {
     const data = await response.json();
     if (data.status ==='ok') {
       localStorage.setItem("token", data.token);
-      console.log("redirecting");
       navigate("/dashboard");
     } else {
       console.log("An Error!");

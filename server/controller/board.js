@@ -1,14 +1,11 @@
 const Board = require("../model/Board");
 
 async function verifyBoard(name, userID) {
-  await Board.find({
+  let boards = await Board.find({
     name: name,
     user: userID,
-  }).then((result) => {
-    console.log(result.length);
-    if (result.length) return false;
   });
-  return true;
+  return boards.length;
 }
 
 module.exports = { verifyBoard };

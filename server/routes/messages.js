@@ -38,14 +38,11 @@ MessagesRouter.get('/message', verifyAccessToken, async (req, res)=>{
             email: decoded.email
         });
 
-        console.log(user);
     
         const userData = await UserData.find({
             user: user._id
         });
         
-        console.log(userData);
-
         res.json({ status: "ok", data: userData });
       
     } catch (error) {
