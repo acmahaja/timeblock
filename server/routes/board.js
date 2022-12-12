@@ -36,10 +36,8 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
       throw new Error("Can't create To Do Board");
     }
 
-    const decoded = res.locals.decoded;
-
     const user = await User.findOne({
-      email: decoded.email,
+      email: res.locals.decoded.email,
     });
 
     if (user === null) {
@@ -47,16 +45,26 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
     }
 
     let {name, columns} = req.body;
+    let as = await verifyBoard(name, user._id)
+    console.log("as");
+    console.log(as);
 
-    if (verifyBoard(name, user._id)) {
+    if (!verifyBoard(name, user._id)) {
+      console.log("asd");
+      throw new Error('Board Exist')
     }
 
     const newBoard = new Board({ user: user._id,  name: name});    
-    columns = parseColumns(columns);
+
+    
+    if (columns) {      
+      columns = parseColumns(columns);
+      columns = saveColumns(columns, newBoard._id)
+    }
 
     newBoard.save()
-    saveColumns(columns, newBoard._id)
- 
+    columns.forEach(async column => column.save())
+    
     res.send({ status: "ok", board_id: newBoard._id });
   } catch (error) {
     res.send({ status: "error", message: `Error Creating board ${error}` });

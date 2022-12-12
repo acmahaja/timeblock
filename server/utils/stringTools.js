@@ -1,6 +1,10 @@
 function parseColumns(string){
-    string = string.replace(/\[|\]|\,/ig,'')
-    string = string.split(/\s/)
+    if (!string.length) {
+        return []
+    }
+    string = string.replace(/\[|\]|/gi, '')
+    string = string.replace(/\,\s/gi, ',')
+    string = string.split(',')
 
     return string
 }
