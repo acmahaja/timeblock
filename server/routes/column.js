@@ -19,8 +19,25 @@ ColumnRouter.put(
     verifyAccessToken, 
     async (req, res) => {
         const { id } = req.params;
-
-        res.send(`updating column${id}`);
+        try {
+            const { name, colour } = req.body;
+            
+            await Column.findByIdAndUpdate(
+                id, 
+                {
+                    name: name,
+                    colour: colour
+                }    
+            )
+            res.send({
+                status: "ok",
+            });
+        } catch (error) {
+            res.send({
+                status: "error",
+                message: `Error creating column: ${error.message}`
+            });
+        }
 });
 
 ColumnRouter.get(
@@ -34,13 +51,14 @@ ColumnRouter.get(
                 deleted: false
             })
 
-            if (column.length === 0) {
+            if (column.length !== 1) {
                 throw new Error(`Column not found`)
             }
             res.send({
                 status: "ok",
-                ...column
+                column: column[0]
             })
+
         } catch (error) {
             res.send({
                 status: "error",
