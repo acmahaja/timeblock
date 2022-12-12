@@ -1,13 +1,17 @@
 const Column = require("../model/Column");
 
 async function verifyColumn(name, boardID) {
-  await Column.find({
+  const columnList = await Column.find({
     name: name,
     board: boardID,
-  }).then((result) => {
-    if (result.length) return false;
   });
-  return true;
+
+  if (columnList.length > 0) {
+    console.log(true);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function saveColumns(columns, boardID) {
@@ -18,7 +22,8 @@ function saveColumns(columns, boardID) {
 
   columns.forEach((column) => {
     if (
-      !verifyColumn(column, boardID) || columns.indexOf(column) !== columns.lastIndexOf(column)
+      !verifyColumn(column, boardID) ||
+      columns.indexOf(column) !== columns.lastIndexOf(column)
     ) {
       throw new Error(`Column Exists or Duplicate`);
     }
@@ -27,12 +32,11 @@ function saveColumns(columns, boardID) {
       board: boardID,
       name: column,
     });
-    
-    columnObjects.push(newColumn)
-    
+
+    columnObjects.push(newColumn);
   });
 
   return columnObjects;
 }
 
-module.exports = { saveColumns };
+module.exports = { saveColumns, verifyColumn };
