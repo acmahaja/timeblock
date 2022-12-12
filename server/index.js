@@ -5,11 +5,10 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 var bodyParser = require("body-parser");
 
-const { join } = require("path");
 
 
 const {AuthRouter} = require('./routes/auth')
-const {MessagesRouter} = require('./routes/messages')
+const {BoardRouter} = require('./routes/board')
 
 app.use(cors());
 app.use(express.json());
@@ -31,14 +30,14 @@ mongoose
   .then(() => {
     console.log(`🌿[Database]: Connected to database`);
   })
-  .catch(() => {
+  .catch((error) => {
     console.log(`🖥️[Server]: Failed to connect to database`);
   });
 
 const port = process.env.PORT || 3001;
 
 
-app.use('/api', MessagesRouter)
+app.use('/api/board', BoardRouter)
 app.use('/auth', AuthRouter)
 
 

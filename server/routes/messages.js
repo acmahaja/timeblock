@@ -5,7 +5,6 @@ const User = require("../model/User");
 const UserData = require("../model/UserData");
 const {verifyAccessToken} = require('../utils/auth')
 const dotenv = require("dotenv");
-const { decode } = require('jsonwebtoken');
 dotenv.config();
 
 
@@ -39,14 +38,11 @@ MessagesRouter.get('/message', verifyAccessToken, async (req, res)=>{
             email: decoded.email
         });
 
-        console.log(user);
     
         const userData = await UserData.find({
             user: user._id
         });
         
-        console.log(userData);
-
         res.json({ status: "ok", data: userData });
       
     } catch (error) {
