@@ -1,4 +1,4 @@
-function parseColumns(string){
+function parseArray(string){
     if (!string.length) {
         return []
     }
@@ -10,5 +10,5 @@ function parseColumns(string){
 }
 
 module.exports = {
-    parseColumns
+    parseArray
 }

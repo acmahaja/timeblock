@@ -10,6 +10,7 @@ var bodyParser = require("body-parser");
 const {AuthRouter} = require('./routes/auth')
 const {BoardRouter} = require('./routes/board')
 const {ColumnRouter} = require('./routes/column')
+const {TasksRouter} = require('./routes/tasks')
 
 app.use(cors());
 app.use(express.json());
@@ -38,6 +39,7 @@ mongoose
 const port = process.env.PORT || 3001;
 
 
+app.use('/api/tasks', TasksRouter)
 app.use('/api/column', ColumnRouter)
 app.use('/api/board', BoardRouter)
 app.use('/auth', AuthRouter)

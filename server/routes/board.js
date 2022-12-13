@@ -5,11 +5,11 @@ const User = require("../model/User");
 const Board = require("../model/Board");
 const Task = require("../model/Task");
 const { verifyAccessToken } = require("../utils/auth");
-const { parseColumns } = require("../utils/stringTools");
+const { parseArray } = require("../utils/stringTools");
 
 const dotenv = require("dotenv");
 const { model, Error } = require("mongoose");
-const { saveColumns } = require("../controller/column");
+const { createColumnInstances } = require("../controller/column");
 const { verifyBoard } = require("../controller/board");
 const Column = require("../model/Column");
 
@@ -92,8 +92,8 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
     const newBoard = new Board({ user: user._id, name: name, deleted: false });
 
     if (columns) {
-      columns = parseColumns(columns);
-      columns = saveColumns(columns, newBoard._id);
+      columns = parseArray(columns);
+      columns = createColumnInstances(columns, newBoard._id);
     }
 
     newBoard.save();
