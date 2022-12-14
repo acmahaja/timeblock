@@ -4,6 +4,7 @@ const SubTaskSchema = new Schema({
   task: {
     type: Schema.Types.ObjectId,
     ref: "Task",
+    required: true
   },
   title: {
     type: String,
@@ -19,6 +20,6 @@ const SubTaskSchema = new Schema({
   },
 });
 
-const Task = model("SubTask", SubTaskSchema);
+const SubTask = model("SubTask", SubTaskSchema);
 
 module.exports = SubTask;

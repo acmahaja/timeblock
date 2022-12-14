@@ -1,9 +1,10 @@
 const { Schema, model } = require("mongoose");
 
 const TaskSchema = new Schema({
-  column: {
+  board: {
     type: Schema.Types.ObjectId,
-    ref: "Column",
+    ref: "Board",
+    required: true
   },
   title: {
     type: String,
@@ -12,12 +13,17 @@ const TaskSchema = new Schema({
   emoji: {
     type: String,
     length: 1,
-    required: true,
   },
   description: {
     type: String,
     required: false
   },
+  column: {
+    type: Schema.Types.ObjectId,
+    ref: "Column",
+    required: true
+  },
+  
   deleted: {
     type: Boolean,
     default: false,

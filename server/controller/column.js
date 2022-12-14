@@ -1,5 +1,11 @@
 const Column = require("../model/Column");
 
+async function verifyColumnID(columnID) {
+  let column = await Column.findById(columnID)
+
+  return column !== null;
+}
+
 async function verifyColumn(name, boardID) {
   const columnList = await Column.find({
     name: name,
@@ -14,11 +20,11 @@ async function verifyColumn(name, boardID) {
   }
 }
 
-function saveColumns(columns, boardID) {
+function createColumnInstances(columns, boardID) {
   if (!columns) {
     return;
   }
-  let columnObjects = [];
+  let columnInstances = [];
 
   columns.forEach((column) => {
     if (
@@ -33,10 +39,10 @@ function saveColumns(columns, boardID) {
       name: column,
     });
 
-    columnObjects.push(newColumn);
+    columnInstances.push(newColumn);
   });
 
-  return columnObjects;
+  return columnInstances;
 }
 
-module.exports = { saveColumns, verifyColumn };
+module.exports = { createColumnInstances, verifyColumn, verifyColumnID };
