@@ -24,7 +24,6 @@ AuthRouter.post("/login", async (req, res) => {
       return;
     }
 
-    console.log(req.body);
 
     const checkPassword = await bcrypt.compare(
       req.body.password,
@@ -53,16 +52,18 @@ AuthRouter.post("/login", async (req, res) => {
 });
 
 AuthRouter.post("/register", async (req, res) => {
-  let user = User.findOne({
-    email: req.body.email,
-  });
-
-  if (!user) {
-    console.log(`⚠️ [Server]: Error\nUser Exists!`);
-    res.json({ status: "error", error: "User Exists" });
-  }
-
   try {
+
+    let user = await User.findOne({
+      email: req.body.email,
+    });
+
+    
+    if (user !== null) {
+      res.json({ status: "error", error: "User Exists" });
+      return
+    }
+
     req.body.password = await bcrypt.hash(
       req.body.password,
       Number.parseInt(process.env.SALT)
@@ -83,7 +84,7 @@ AuthRouter.post("/register", async (req, res) => {
   } catch (error) {
     console.log(`⚠️ [Server]: Error!`);
     console.log(error);
-    res.json({ status: "error", error: "Invalid User" });
+    res.json({ status: "error", error: `Error: ${error.message}` });
   }
 });
 
