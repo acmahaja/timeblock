@@ -16,7 +16,10 @@ ColumnRouter.delete(
           
           res.send({ status: "ok" });
         } catch (error) {
-          res.send({ status: "error", message: `Something broke deleting column: ${error.message}` });
+          res.send({ 
+            status: "error",
+            error: `Something broke deleting column: ${error.message}` 
+        });
         }
       
 });
@@ -42,7 +45,7 @@ ColumnRouter.put(
         } catch (error) {
             res.send({
                 status: "error",
-                message: `Error creating column: ${error.message}`
+                error: `Error creating column: ${error.message}`
             });
         }
 });
@@ -69,7 +72,7 @@ ColumnRouter.get(
         } catch (error) {
             res.send({
                 status: "error",
-                message: `Error getting column: ${error}`
+                error: `Error getting column: ${error}`
             })
         }
 });
@@ -101,7 +104,7 @@ ColumnRouter.post(
         } catch (error) {
             res.send({
                 status: "error",
-                message: `Error creating column: ${error.message}`
+                error: `ColumnError: ${error.message ? error.message : "Error Creating Column"}`
             });
         }
 });

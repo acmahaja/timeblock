@@ -15,6 +15,8 @@ const Column = require("../model/Column");
 
 dotenv.config();
 
+
+
 BoardRouter.delete("/:id", verifyAccessToken, async (req, res) => {
   const { id } = req.params;
 
@@ -32,6 +34,9 @@ BoardRouter.delete("/:id", verifyAccessToken, async (req, res) => {
 
 });
 
+
+
+
 BoardRouter.put("/:id", verifyAccessToken, async (req, res) => {
   const { id } = req.params;
 
@@ -42,6 +47,8 @@ BoardRouter.put("/:id", verifyAccessToken, async (req, res) => {
     res.send({ status: "error", message: "Something broke updating board" });
   }
 });
+
+
 
 BoardRouter.get("/:id", verifyAccessToken, async (req, res) => {
   try {
@@ -69,6 +76,8 @@ BoardRouter.get("/:id", verifyAccessToken, async (req, res) => {
   }
 });
 
+
+
 BoardRouter.post("/", verifyAccessToken, async (req, res) => {
   try {
     if (req.body.name === "To Do") {
@@ -86,7 +95,7 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
     let { name, columns } = req.body;
 
     if ((await verifyBoard(name, user._id)) > 0) {
-      throw new Error("Board Exist");
+      throw new Error("Board Exists");
     }
 
     const newBoard = new Board({ user: user._id, name: name, deleted: false });
@@ -101,7 +110,7 @@ BoardRouter.post("/", verifyAccessToken, async (req, res) => {
 
     res.send({ status: "ok", board_id: newBoard._id });
   } catch (error) {
-    res.send({ status: "error", message: `Error Creating board: ${error.message}` });
+    res.send({ status: "error", error: `BoardError: ${error.message ? error.message: "Something went wrong creating board"}` });
   }
 });
 

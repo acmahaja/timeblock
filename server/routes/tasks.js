@@ -16,24 +16,132 @@ const SubTask = require("../model/SubTask")
 TasksRouter.delete(
     '/:id',
     verifyAccessToken,
-    (req,res)=>{
-        res.send('Deleting Task')
+    async (req,res)=>{
+        try {
+
+            const taskID = req.params.id
+
+            const updatedTask = await Task.findByIdAndUpdate(taskID,
+                {
+                    deleted : true
+                })
+
+            if (updatedTask === null || updatedTask.deleted === true) {
+                throw new Error("Task not found")
+            }
+    
+            
+            let subTasks = await SubTask.find({
+                task: taskID,
+                deleted: false
+            })   
+            
+            
+            await updatedTask.save()
+
+            subTasks.forEach(async (subTask)=>{
+                subTask.deleted = true;
+
+                await subTask.save()
+            })
+
+            res.send({
+                status: "ok"
+            })
+    
+
+        } catch (error) {
+            res.send({
+                status: "error",
+                error: `TaskError: ${error.message ? error.message : `Error editing Task`}`
+            })
+        }
     }
 )
 
 TasksRouter.put(
     '/:id',
     verifyAccessToken,
-    (req,res)=>{
-        res.send('editing Task')
+    async (req,res)=>{
+        try {
+
+            const taskID = req.params.id
+
+            const updatedTask = await Task.findByIdAndUpdate(taskID,
+                {
+                    title: req.body.title,
+                    emoji: req.body.emoji,
+                    description: req.body.description,
+                    column: req.body.columnID,
+                    board: req.body.boardID,
+                })
+            
+            let subTasks = await SubTask.find({
+                task: taskID,
+                deleted: false
+            })   
+            
+            subTasks.forEach(async subtask => await subtask.delete())
+
+            subTasks = parseArray(req.body.Subtasks);
+            subTasks = createSubTasksInstances(subTasks, taskID)
+            
+            await updatedTask.save()
+
+            subTasks.forEach(async (subTask)=>{
+                await subTask.save()
+            })
+
+            res.send({
+                status: "ok"
+            })
+    
+
+        } catch (error) {
+            res.send({
+                status: "Error",
+                error: `TaskError: ${error.message ? error.message : `Error editing Task`}`
+            })
+        }
     }
 )
+
+
 
 TasksRouter.get(
     '/:id',
     verifyAccessToken,
-    (req,res)=>{
-        res.send('getting Task')
+    async (req,res)=>{
+        try {
+
+            const task = await Task.findById(req.params.id)
+            
+            if (task === null || task.deleted === true) {
+                throw new Error("Task not found")
+            }
+
+            if(task.length >1){
+                throw new Error("Duplicate Tasks with same ID found")
+            }
+
+
+            const subTasks = await SubTask.find({
+                task: task.id,
+                deleted: false
+            })
+            
+            res.send({
+                status: 'ok',
+                task: task,
+                subtasks: subTasks
+            })
+
+        } catch (error) {
+            
+            res.send({status: 'error', error: `TaskError: ${error.message}`})
+        }
+        
+
     }
 )
 
@@ -53,6 +161,7 @@ TasksRouter.post(
             if(!validColumn){
                 throw new Error('Column not found')
             }
+            
 
             let newTask = new Task({
                 title: req.body.title,
@@ -61,23 +170,22 @@ TasksRouter.post(
                 column: req.body.columnID,
                 board: req.body.boardID,
             })
-
-            await newTask.save()
+            
             
             let subTasks = parseArray(req.body.Subtasks);
             subTasks = createSubTasksInstances(subTasks, newTask._id)
             
+            await newTask.save()
             subTasks.forEach(async (subTask)=>{
                 await subTask.save()
             })
 
-            
-
             res.send({status: "ok", id: newTask._id})
+
         } catch (error) {
             res.send({
                 status: "error",
-                message: `Error: Error creating Task ${error.message}`
+                error: `TaskError: ${error.message ? error.message : "Error creating Task"}`
             })
         }
     }
