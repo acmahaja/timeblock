@@ -45,6 +45,24 @@ app.use('/api/board', BoardRouter)
 app.use('/auth', AuthRouter)
 
 
+app.delete('/nuke', async (req,res)=> {
+  mongoose
+  .connect(
+    process.env.DATABASE, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    },
+    async function () {
+
+      process.env.NODE_ENV === 'production' ? res.send(`Cant Drop Production Build`):  await mongoose.connection.db.dropDatabase()
+        .then(()=>{
+          res.send(`Dropped DB`)
+        })
+
+    }
+  )
+})
+
 app.get("/api", (req, res) => {
   res.json({ message: "🖥️[server]: Hello from MernTemplate server!" });
 });
