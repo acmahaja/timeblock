@@ -113,7 +113,7 @@ TasksRouter.get(
     verifyAccessToken,
     async (req,res)=>{
         try {
-
+            console.log("as");
             const task = await Task.findById(req.params.id)
             
             if (task === null || task.deleted === true) {
