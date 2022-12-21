@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TextField from "../components/TextField";
+import Toast from "../components/Toast";
 
 import "../styles/Register.css";
 import "../styles/Light/Register.css";
@@ -10,17 +11,19 @@ import "../styles/Dark/Register.css";
 
 import { ReactComponent as LoginImage } from "../assets/undraw_welcome.svg";
 
-
-
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [error, setError] = useState(false);
+  const [popupError, setPopupError] = useState("asd");
+
   const navigate = useNavigate();
 
   async function registerUser(event) {
     event.preventDefault();
+
     const response = await fetch(
       `${process.env.REACT_APP_SERVER_ADDRESS}/auth/register`,
       {
@@ -37,24 +40,45 @@ function Register() {
     if (data.status === "ok") {
       navigate("/login");
     } else {
-      console.log("error");
+      setError(true);
+      setPopupError(data.error);
+
+      const timer = setTimeout(() => {
+        setPopupError(false);
+      }, 10000);
+      return () => clearTimeout(timer);
     }
   }
 
+  function clearError(event) {
+    setPopupError("");
+    setError(false);
+  }
+
   function updateName(text) {
-    setName(text)
+    setName(text);
   }
 
   function updateEmail(text) {
-    setEmail(text)
+    setEmail(text);
   }
- 
+
   function updatePassword(text) {
-    setPassword(text)
+    setPassword(text);
   }
 
   return (
     <div className="Register gradient-bg">
+      {popupError.length ? (
+        <Toast
+          title={"Error"}
+          message={popupError}
+          clearError={(event) => clearError()}
+        />
+      ) : (
+        ""
+      )}
+
       <form className="registerForm" onSubmit={registerUser}>
         <img alt="logo" className="logo" />
         <LoginImage className="cover" />
@@ -64,6 +88,8 @@ function Register() {
           setText={updateName}
           placeholder="full name"
           icon="newuser"
+          required="true"
+          error={error}
         />
         <TextField
           name="email"
@@ -71,6 +97,8 @@ function Register() {
           setText={updateEmail}
           placeholder="your@email.com"
           icon="email"
+          required="true"
+          error={error}
         />
         <TextField
           name="password"
@@ -78,9 +106,13 @@ function Register() {
           setText={setPassword}
           placeholder="password"
           icon="password"
+          required="true"
+          error={error}
         />
 
-        <button className="PrimaryL" type="submit">Register</button>
+        <button className="PrimaryL" type="submit">
+          Register
+        </button>
 
         <a href="/login">Login</a>
       </form>

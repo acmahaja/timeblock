@@ -53,3 +53,6 @@
     
 }
 
+.TextField.error span {
+  border: 1px solid rgb(var(--red)) !important;
+}
