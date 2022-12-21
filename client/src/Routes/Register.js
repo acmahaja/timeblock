@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import '../styles/Light/Register.css'
+import '../styles/Dark/Register.css'
+
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,45 +32,45 @@ function Register() {
   }
 
   return (
-    <form className="registerForm" onSubmit={registerUser}>
-            {process.env.REACT_APP_SERVER_ADDRESS}
+    <div className="Register gradient-bg">
+      <form className="registerForm" onSubmit={registerUser}>
+        <div>
+          <label htmlFor="name">Name</label>
+          <input
+            placeholder={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            name="name"
+            id="name"
+          />
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <input
+            placeholder={email}
+            onChange={(e) => setEmail(e.target.value)}
+            type="email"
+            name="email"
+            id="email"
+          />
+        </div>
+        <div>
+          <label htmlFor="">Password</label>
+          <input
+            placeholder={password}
+            type="password"
+            name="password"
+            id="password"
+          //   required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
-          placeholder={name}
-          onChange={(e) => setName(e.target.value)}
-          type="text"
-          name="name"
-          id="name"
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          placeholder={email}
-          onChange={(e) => setEmail(e.target.value)}
-          type="email"
-          name="email"
-          id="email"
-        />
-      </div>
-      <div>
-        <label htmlFor="">Password</label>
-        <input
-          placeholder={password}
-          type="password"
-          name="password"
-          id="password"
-        //   required
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+        <button type="submit">Register</button>
 
-      <button type="submit">Register</button>
-
-      <a href="/login">Login</a>
-    </form>
+        <a href="/login">Login</a>
+      </form>
+    </div>
   );
 }
 

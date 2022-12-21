@@ -1,0 +1,13 @@
+.Register {
+    height: 100%;
+    width: 100%;   
+    padding: 0px;
+    margin: 0px;
+    display: grid;
+    place-items: center;
+}
+
+.Dark form.registerForm {
+    background-color: rgb(var(--dark-lines));
+    
+}
