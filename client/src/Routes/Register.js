@@ -17,7 +17,7 @@ function Register() {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState(false);
-  const [popupError, setPopupError] = useState("asd");
+  const [popupError, setPopupError] = useState("");
 
   const navigate = useNavigate();
 
@@ -45,12 +45,12 @@ function Register() {
 
       const timer = setTimeout(() => {
         setPopupError(false);
-      }, 10000);
+      }, 10000000000);
       return () => clearTimeout(timer);
     }
   }
 
-  function clearError(event) {
+  function clearError() {
     setPopupError("");
     setError(false);
   }

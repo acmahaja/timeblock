@@ -1,5 +1,10 @@
+.Light .Toast {
+    background: white;
+
+}
+
 .Light .Toast span{
-    color: rgb(var(--dark-grey));
+    color: rgb(var(--medium-grey));
     border-bottom: 1px solid rgb(var(--light-lines));
 
 } 

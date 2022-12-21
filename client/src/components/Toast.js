@@ -15,7 +15,7 @@ function Toast({title, message, clearError}) {
 
     return (
         <div className={`Toast ${!message.length ? 'hide': ""}`}>
-            <span>
+            <span data-icon={"error"}>
                 {title}
                 <button onClick={toggleShow}>x</button>
             </span>

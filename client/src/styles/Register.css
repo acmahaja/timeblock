@@ -33,3 +33,12 @@ form.registerForm > a {
   letter-spacing: 0px;
   text-decoration: none;
 }
+
+.Register {
+  height: 100%;
+  width: 100%;   
+  padding: 0px;
+  margin: 0px;
+  display: grid;
+  place-items: center;
+}
