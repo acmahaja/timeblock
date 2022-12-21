@@ -1,0 +1,44 @@
+:root {
+  --main-purple: 99, 95, 199;
+  --main-purple-hover: 168, 164, 255;
+  --black: 0, 1, 18;
+  --very-dark-grey: 32, 33, 44;
+  --dark-grey: 43, 44, 55;
+  --dark-lines: 62, 63, 78;
+  --medium-grey: 130, 143, 163;
+  --light-lines: 228, 235, 250;
+  --light-grey: 244, 247, 253;
+  --white: 255, 255, 255;
+  --red: 234, 85, 85;
+  --red-hover: 255, 152, 152;
+}
+
+html {
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0px;
+  margin: 0px;
+}
+
+body,
+#root {
+  height: 100vh;
+  width: 100vw;
+  padding: 0px;
+  margin: 0px;
+}
+
+.gradient-bg {
+  background-color: #999cff;
+  background-image: radial-gradient(
+      at 49% 93%,
+      hsla(345, 71%, 65%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 57% 7%, hsla(10, 81%, 79%, 1) 0px, transparent 50%),
+    radial-gradient(at 12% 54%, hsla(245, 84%, 79%, 1) 0px, transparent 50%),
+    radial-gradient(at 9% 95%, hsla(176, 79%, 76%, 1) 0px, transparent 50%),
+    radial-gradient(at 20% 76%, hsla(329, 63%, 62%, 1) 0px, transparent 50%),
+    radial-gradient(at 74% 4%, hsla(82, 72%, 71%, 1) 0px, transparent 50%),
+    radial-gradient(at 37% 73%, hsla(210, 79%, 63%, 1) 0px, transparent 50%);
+}
