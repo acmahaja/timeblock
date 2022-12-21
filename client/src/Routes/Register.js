@@ -79,7 +79,7 @@ function Register() {
         ""
       )}
 
-      <form className="registerForm" onSubmit={registerUser}>
+      <form data-aos="fade-up" className="registerForm" onSubmit={registerUser}>
         <img alt="logo" className="logo" />
         <LoginImage className="cover" />
         <TextField

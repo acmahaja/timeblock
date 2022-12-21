@@ -9,6 +9,7 @@ import Login from "./Routes/Login";
 import Welcome from "./Routes/Welcome";
 import Dashboard from "./Routes/Dashboard";
 
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [theme, setTheme] = useState(localStorage.getItem('theme') || "Light");
