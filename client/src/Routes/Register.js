@@ -8,7 +8,7 @@ import "../styles/Register.css";
 import "../styles/Light/Register.css";
 import "../styles/Dark/Register.css";
 
-import { ReactComponent as LoginImage } from "../assets/undraw_schedule.svg";
+import { ReactComponent as LoginImage } from "../assets/undraw_welcome.svg";
 
 
 
@@ -80,7 +80,7 @@ function Register() {
           icon="password"
         />
 
-        <button type="submit">Register</button>
+        <button className="PrimaryL" type="submit">Register</button>
 
         <a href="/login">Login</a>
       </form>

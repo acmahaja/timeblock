@@ -14,3 +14,7 @@
 .Light form.registerForm {
     background-color: rgb(var(--white));   
 }
+
+.Light form.registerForm > a {
+    color: rgb(var(--medium-grey));
+}
