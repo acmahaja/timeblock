@@ -7,7 +7,10 @@
     place-items: center;
 }
 
+.Light form.registerForm > .logo { 
+    content:url("../../assets/logo-light.svg");
+}
+
 .Light form.registerForm {
-    background-color: rgb(var(--white));
-    
+    background-color: rgb(var(--white));   
 }

@@ -2,8 +2,16 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+import '../styles/Register.css'
 import '../styles/Light/Register.css'
 import '../styles/Dark/Register.css'
+
+import {ReactComponent as LoginImage} from '../assets/undraw_schedule.svg';
+
+import LogoDark from '../assets/logo-dark.svg'
+import LogoLight from '../assets/logo-light.svg'
+
 
 function Register() {
   const [name, setName] = useState("");
@@ -34,6 +42,8 @@ function Register() {
   return (
     <div className="Register gradient-bg">
       <form className="registerForm" onSubmit={registerUser}>
+        <img alt="logo" className="logo" />
+        <LoginImage className="cover" />
         <div>
           <label htmlFor="name">Name</label>
           <input

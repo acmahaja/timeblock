@@ -1,0 +1,24 @@
+form.registerForm {
+    width: 60.8333333333ch;
+    height: 44.4166666667rem;
+
+    /* padding: 1.6666666667rem; */
+    
+    box-sizing: border-box;
+    border-radius: 7px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+form.registerForm > .logo{
+    width: 23.1666666667ch;
+    height: 2.5rem;
+}
+
+form.registerForm > svg.cover{
+    height: 15.5833333333rem;
+    width: 15.1666666667rem;
+}
