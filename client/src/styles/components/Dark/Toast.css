@@ -1,0 +1,19 @@
+.Light .Toast {
+    background: white;
+
+}
+
+.Light .Toast span{
+    color: rgb(var(--medium-grey));
+    border-bottom: 1px solid rgb(var(--light-lines));
+
+} 
+
+.Light .Toast p {
+    color: rgb(var(--black));
+} 
+
+.Light .Toast span button {
+    background-color: white;
+    color: rgb(var(--dark-grey));
+}

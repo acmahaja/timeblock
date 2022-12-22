@@ -1,0 +1,23 @@
+.Light .TextField label {
+  color: rgb(var(--medium-grey));
+}
+
+.Light .TextField span[data-icon="newuser"]::before {
+    background-image: url("../../../assets/icons/newuser-light.svg");
+}
+
+.Light .TextField span[data-icon="email"]::before {
+    background-image: url("../../../assets/icons/email-light.svg");
+}
+
+.Light .TextField span[data-icon="password"]::before {
+    background-image: url("../../../assets/icons/password-light.svg");
+}
+
+.Light .TextField span {
+    border: 1px solid rgba(130, 143, 163, 0.25);
+}
+
+.Light .TextField input::placeholder{
+    color: rgb(var(--text-muted));
+}

@@ -5,7 +5,6 @@ const jwt = require("jsonwebtoken");
 
 const { join } = require("path");
 
-
 const User = require("../model/User");
 const Board = require("../model/Board");
 const bcrypt = require("bcryptjs");
@@ -18,18 +17,14 @@ AuthRouter.post("/login", async (req, res) => {
       email: req.body.email,
     });
 
-
     if (!user) {
-      res.json({ status: "error", error: "Invalid login" });
-      return;
+      throw new Error("User email doesn't exist");
     }
-
 
     const checkPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
-    
 
     if (checkPassword) {
       const token = jwt.sign(
@@ -40,28 +35,26 @@ AuthRouter.post("/login", async (req, res) => {
         process.env.SECRET_HASH
       );
 
-
-
       res.json({ status: "ok", token: token });
     } else {
-      res.json({ status: "error", error: "Invalid login" });
+      throw new Error("Wrong Email or Password");
     }
   } catch (error) {
-    res.json({ status: "error", error: "Something Broke" });
+    res.json({
+      status: "error",
+      error: `AuthError: ${error.message || "Wrong Email or Password"}`,
+    });
   }
 });
 
 AuthRouter.post("/register", async (req, res) => {
   try {
-
     let user = await User.findOne({
       email: req.body.email,
     });
 
-    
     if (user !== null) {
-      res.json({ status: "error", error: "User Exists" });
-      return
+      throw new Error("User Exists");
     }
 
     req.body.password = await bcrypt.hash(
@@ -75,16 +68,19 @@ AuthRouter.post("/register", async (req, res) => {
 
     let todoBoard = new Board({
       user: user._id,
-      name: "To Do"
-    })
+      name: "To Do",
+    });
 
-    await todoBoard.save()
+    await todoBoard.save();
 
     res.json({ status: "ok" });
   } catch (error) {
     console.log(`⚠️ [Server]: Error!`);
     console.log(error);
-    res.json({ status: "error", error: `Error: ${error.message}` });
+    res.json({
+      status: "error",
+      error: `RegisterError: ${error.message || "Error Registering User"}`,
+    });
   }
 });
 

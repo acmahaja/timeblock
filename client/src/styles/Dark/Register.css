@@ -1,0 +1,12 @@
+
+.Dark form.registerForm > .logo { 
+    content:url("../../assets/logo-dark.svg");
+}
+
+.Dark  form.registerForm {
+    background-color: rgb(var(--dark-lines));   
+}
+
+.Dark  form.registerForm > a {
+    color: rgb(var(--medium-grey));
+}

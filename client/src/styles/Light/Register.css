@@ -1,0 +1,16 @@
+
+.Light form.registerForm {
+    background-color: rgb(var(--white));
+}
+
+.Light form.registerForm > .logo { 
+    content:url("../../assets/logo-light.svg");
+}
+
+.Light form.registerForm {
+    background-color: rgb(var(--white));   
+}
+
+.Light form.registerForm > a {
+    color: rgb(var(--medium-grey));
+}
