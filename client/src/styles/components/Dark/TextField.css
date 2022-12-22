@@ -27,3 +27,7 @@
     background: rgb(var(--very-dark-grey));
     color: rgb(var(--white));
 }
+
+.Dark .TextField span input:-webkit-autofill, input:focus:-webkit-autofill {
+  color: white;
+}

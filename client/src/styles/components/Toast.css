@@ -1,6 +1,6 @@
 .Toast {
     width: 30ch;
-    min-height: 10rem;
+    height: fit-content;
     position: absolute;
     top: 2rem;
     left: 2rem;
