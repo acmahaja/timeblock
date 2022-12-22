@@ -12,7 +12,9 @@ import Dashboard from "./Routes/Dashboard";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [theme, setTheme] = useState(localStorage.getItem('theme') || "Light");
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "");
+  const [systemTheme, setSystemTheme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "Dark" : "Light");
+
 
   useEffect(() => {
     setLoggedIn(localStorage.getItem("token") === null);
@@ -20,7 +22,7 @@ function App() {
   }, [loggedIn]);
 
   return (
-    <div className={`App ${theme}`}>
+    <div className={`App ${ theme.length ? theme : systemTheme}`}>
       <BrowserRouter>
         <Routes>
           <Route path="/register" element={<Register />} />

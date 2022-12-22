@@ -34,7 +34,10 @@ function Login() {
     const data = await response.json();
 
     if (data.status === "ok") {
-      navigate("/login");
+      console.log(data);
+      localStorage.setItem('token', data.token)
+      navigate("/dashboard");
+
     } else {
       setError(true);
       setPopupError(data.error);
@@ -97,6 +100,8 @@ function Login() {
         <button className="PrimaryL" type="submit">
           Login
         </button>
+
+
 
         <a href="/register">Register here!</a>
       </form>
