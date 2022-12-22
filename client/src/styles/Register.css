@@ -1,3 +1,12 @@
+.Register {
+  height: 100%;
+  width: 100%;   
+  padding: 0px;
+  margin: 0px;
+  display: grid;
+  place-items: center;
+}
+
 form.registerForm {
   width: 60.8333333333ch;
   height: 51.6666666667rem;
@@ -26,19 +35,10 @@ form.registerForm > svg.cover {
 }
 
 form.registerForm > a {
-  font-family: Plus Jakarta Sans;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.25rem;
   letter-spacing: 0px;
   text-decoration: none;
-}
-
-.Register {
-  height: 100%;
-  width: 100%;   
-  padding: 0px;
-  margin: 0px;
-  display: grid;
-  place-items: center;
 }

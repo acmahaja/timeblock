@@ -1,0 +1,12 @@
+
+.Dark form.loginForm > .logo { 
+    content:url("../../assets/logo-dark.svg");
+}
+
+.Dark  form.loginForm {
+    background-color: rgb(var(--dark-lines));   
+}
+
+.Dark  form.loginForm > a {
+    color: rgb(var(--medium-grey));
+}

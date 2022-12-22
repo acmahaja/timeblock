@@ -45,7 +45,7 @@ function Register() {
 
       const timer = setTimeout(() => {
         setPopupError(false);
-      }, 10000000000);
+      }, 50000);
       return () => clearTimeout(timer);
     }
   }
@@ -103,7 +103,7 @@ function Register() {
         <TextField
           name="password"
           type="password"
-          setText={setPassword}
+          setText={updatePassword}
           placeholder="password"
           icon="password"
           required="true"
