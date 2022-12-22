@@ -1,0 +1,16 @@
+
+.Light form.loginForm {
+    background-color: rgb(var(--white));
+}
+
+.Light form.loginForm > .logo { 
+    content:url("../../assets/logo-light.svg");
+}
+
+.Light form.loginForm {
+    background-color: rgb(var(--white));   
+}
+
+.Light form.loginForm > a {
+    color: rgb(var(--medium-grey));
+}
